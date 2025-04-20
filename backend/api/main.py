@@ -49,7 +49,9 @@ def fetch_tweets(keyword:str, max_results:int = 10):
     new_tweets = TwitterFetcher().fetch_tweets(keyword, max_results)
 
     if new_tweets: 
-        tweets_collection.insert_many(new_tweets)
+        # print(f"Fetched {len(new_tweets)} new tweets.")
+        # tweets_collection.insert_many(new_tweets)
+        print(f"tweets: {new_tweets}")
         return {"status": "success", "message": f"Fetched {len(new_tweets)} new tweets."}
     else:
         return {"status": "error", "message": "No new tweets found."}

@@ -18,3 +18,4 @@ logs/
 # IDE 
 .vscode/ 
 .idea/ 
+auth_keys/

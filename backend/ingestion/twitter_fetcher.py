@@ -30,3 +30,32 @@ class TwitterFetcher:
             expansions=["author_id", "geo.place_id"],
             max_results=max_results
         )
+
+    def store_tweets(self, tweets):
+        if not tweets.data:
+            print("No tweets found.")
+            return
+
+        for tweet in tweets.data:
+            # Check if the tweet already exists in the database
+            # existing_tweet = self.collection.find_one({"id": tweet.id})
+            # if existing_tweet:
+            #     print(f"Tweet {tweet.id} already exists in the database.")
+            #     continue
+
+            # Prepare the tweet data for storage
+            tweet_data = {
+                "id": tweet.id,
+                "text": tweet.text,
+                "created_at": tweet.created_at,
+                "author_id": tweet.author_id,
+                "geo": tweet.geo,
+                "lang": tweet.lang,
+                "place_id": tweet.place_id,
+                "timestamp": datetime.utcnow()
+            }
+
+            # Insert the tweet into the database
+            self.collection.insert_one(tweet_data)
+        
+        return f"{len(tweets.data)} Tweets stored successfully."
